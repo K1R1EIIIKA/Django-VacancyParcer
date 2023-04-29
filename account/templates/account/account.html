@@ -1,0 +1,154 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}Аккаунт{% endblock %}
+
+{% block content %}
+
+    <h1 class="text">Аккаунт</h1><br>
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Введите почту: <br>{{ form.email }}<br></p>
+        <p>Введите никнейм в Telegram (username): <br>{{ form.telegram }}<br></p>
+        <span>{{ error }}</span>
+        <button type="submit">Изменить данные</button>
+    </form>
+
+    <div class="calls">
+        {% if calls %}
+            <h2>Запросы</h2>
+            {% for call in calls %}
+
+                <h2>Запрос: {{ call.vacancy }}, {{ call.city.capitalize }}. Количество: {{ call.count }}</h2>
+                <h3>Сайт: hh.ru</h3>
+                {% for vacancies in hhru_vacancies %}
+                    {% if vacancies.call == call %}
+
+                        {% for vacancy in vacancies.data %}
+                            <div class="vacancy">
+                                <p>
+                                    <b>Название: </b>{{ vacancy.name }}<br>
+                                    {% if vacancy.address != None %}
+                                        <b>Адрес: </b>{{ vacancy.address }}<br>
+                                    {% else %}
+                                        <b>Адрес: </b>Не указан<br>
+                                    {% endif %}
+
+                                    {% if vacancy.is_salary %}
+
+                                        {% if vacancy.salary_from != None %}
+
+                                            {% if vacancy.salary_to != None %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }} до {{ vacancy.salary_to }}
+                                                <br>
+                                            {% else %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }}<br>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <b>Зарплата: </b>До {{ vacancy.salary_to }}<br>
+                                        {% endif %}
+
+                                    {% else %}
+                                        <b>Зарплата: </b>Не указана<br>
+                                    {% endif %}
+
+                                    <b>Ссылка: </b><a href="{{ vacancy.link }}">{{ vacancy.link }}</a><br>
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+                {% endfor %}
+
+                <h3>Сайт: superjob.ru</h3>
+                {% for vacancies in superjob_vacancies %}
+                    {% if vacancies.call == call %}
+
+                        {% for vacancy in vacancies.data %}
+                            <div class="vacancy">
+                                <p>
+                                    <b>Название: </b>{{ vacancy.name }}<br>
+                                    {% if vacancy.address != None %}
+                                        <b>Адрес: </b>{{ vacancy.address }}<br>
+                                    {% else %}
+                                        <b>Адрес: </b>Не указан<br>
+                                    {% endif %}
+
+                                    {% if vacancy.is_salary %}
+
+                                        {% if vacancy.salary_from != None %}
+
+                                            {% if vacancy.salary_to != None %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }} до {{ vacancy.salary_to }}
+                                                <br>
+                                            {% else %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }}<br>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <b>Зарплата: </b>До {{ vacancy.salary_to }}<br>
+                                        {% endif %}
+
+                                    {% else %}
+                                        <b>Зарплата: </b>Не указана<br>
+                                    {% endif %}
+
+                                    <b>Ссылка: </b><a href="{{ vacancy.link }}">{{ vacancy.link }}</a><br>
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+                {% endfor %}
+
+                <h3>Сайт: zarplata.ru</h3>
+                {% for vacancies in zarplataru_vacancies %}
+                    {% if vacancies.call == call %}
+
+                        {% for vacancy in vacancies.data %}
+                            <div class="vacancy">
+                                <p>
+                                    <b>Название: </b>{{ vacancy.name }}<br>
+                                    {% if vacancy.address != None %}
+                                        <b>Адрес: </b>{{ vacancy.address }}<br>
+                                    {% else %}
+                                        <b>Адрес: </b>Не указан<br>
+                                    {% endif %}
+
+                                    {% if vacancy.is_salary %}
+
+                                        {% if vacancy.salary_from != None %}
+
+                                            {% if vacancy.salary_to != None %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }} до {{ vacancy.salary_to }}
+                                                <br>
+                                            {% else %}
+                                                <b>Зарплата: </b>От {{ vacancy.salary_from }}<br>
+                                            {% endif %}
+
+                                        {% else %}
+                                            <b>Зарплата: </b>До {{ vacancy.salary_to }}<br>
+                                        {% endif %}
+
+                                    {% else %}
+                                        <b>Зарплата: </b>Не указана<br>
+                                    {% endif %}
+
+                                    <b>Ссылка: </b><a href="{{ vacancy.link }}">{{ vacancy.link }}</a><br>
+                                </p>
+                            </div>
+                        {% endfor %}
+
+                    {% endif %}
+                {% endfor %}
+
+            {% endfor %}
+        {% else %}
+            <h2>Нет запросов</h2>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

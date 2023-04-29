@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'main/css/styles.css' %}">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <nav class="nav-body">
+        {% if user.is_authenticated %}
+            <p>Вы вошли:
+                <a href="{% url 'account_home' %}"><strong>{{ user.username }}</strong></a>
+                <a href="{% url 'logout' %}"><strong>Выйти</strong></a></p>
+        {% else %}
+            <a class="nav-account" href="{% url 'login' %}">
+                <div class="account">
+                    <p style="padding: 3.75px 0 0 15px">Войдите</p>
+                </div>
+            </a>
+        {% endif %}
+        <ul>
+            <a href="{% url 'home' %}">Главная</a>
+            <a href="/admin">Админ панель</a>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer class="foot_body">
+    </footer>
+</div>
+
+</body>
+</html>
